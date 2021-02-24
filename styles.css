@@ -16,10 +16,10 @@ h1 {
 .grid {
     min-width:33%;
     min-height:33%;
-    background-color: rgb(137, 143, 123);
-    color:black;
+    background-color: rgb(136, 145, 117);
+    color:rgba(245, 245, 245, 0.803);
     font-size:100px;
     font-family:fantasy;
     text-align:center;
-    line-height:220px;
+    line-height:230px;
 }

@@ -6,7 +6,7 @@ function start () {
 }
 
 const gameBoard = (() => {
-    let gameContents = ['X', 'O', 'X', 'X', 'O', 'O', 'X', 'X'];
+    let gameContents = ['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'];
     const addX = () => {
         gameContents.push('X');
         displayController.addBoardContents();
@@ -15,24 +15,27 @@ const gameBoard = (() => {
         gameContents.push('O');
         displayController.addBoardContents();
     }
-    const pop = () => gameContents.pop();
-    const getGame = () => console.log(gameContents);
-    return {  getGame, gameContents, addX, addO, pop  };
+    const checkWin = () => {
+        console.log('checkWin');
+    }
+    
+    return {  gameContents, addX, addO, checkWin  };
 })();
 
 const displayController = (() => {
     const addGrid = () => {
         for(let i = 0; i < 9; i++){
-            let div = document.createElement('DIV');
-            div.setAttribute('class', 'grid');
-            div.setAttribute('id', `${i}`);
-            document.getElementById('gameContainer').appendChild(div);
+            let gridElement = document.createElement('DIV');
+            gridElement.setAttribute('class', 'grid');
+            gridElement.setAttribute('id', `${i}`);
+            document.getElementById('gameContainer').appendChild(gridElement);
         }
     }
     const addBoardContents = () => {
         let game = gameBoard.gameContents;
         let cont = document.getElementById('gameContainer');
         for(let i = 0; i < cont.childElementCount; i++){
+            if(game[i] !== 'N')
             document.getElementById(`${i}`).innerHTML = game[i];
         }
     }
