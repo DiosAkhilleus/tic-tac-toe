@@ -1,3 +1,25 @@
 h1 {
     color:cadetblue;
 }
+
+#gameContainer {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 600px;
+    height:600px;
+    background-color: black;
+    margin:auto;
+    gap:2px;
+}
+
+.grid {
+    min-width:33%;
+    min-height:33%;
+    background-color: rgb(137, 143, 123);
+    color:black;
+    font-size:100px;
+    font-family:fantasy;
+    text-align:center;
+    line-height:220px;
+}
