@@ -22,4 +22,5 @@ h1 {
     font-family:fantasy;
     text-align:center;
     line-height:230px;
+    user-select:none;
 }

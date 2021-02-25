@@ -1,26 +1,11 @@
+
+
 window.addEventListener('load', start);
 
 function start () {
     displayController.addGrid();
     displayController.addBoardContents();
 }
-
-const gameBoard = (() => {
-    let gameContents = ['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'];
-    const addX = () => {
-        gameContents.push('X');
-        displayController.addBoardContents();
-    }
-    const addO = () => {
-        gameContents.push('O');
-        displayController.addBoardContents();
-    }
-    const checkWin = () => {
-        console.log('checkWin');
-    }
-    
-    return {  gameContents, addX, addO, checkWin  };
-})();
 
 const displayController = (() => {
     const addGrid = () => {
@@ -29,6 +14,7 @@ const displayController = (() => {
             gridElement.setAttribute('class', 'grid');
             gridElement.setAttribute('id', `${i}`);
             document.getElementById('gameContainer').appendChild(gridElement);
+            gridElement.addEventListener('click', gameLogic.turn);
         }
     }
     const addBoardContents = () => {
@@ -43,11 +29,65 @@ const displayController = (() => {
 
 })();
 
-const playerCreate = (name, age) => {
-    const getAge = () => console.log(age);
-    const sayHello = () => console.log('hello!');
-    return { name, age, sayHello, getAge };
-  };
+
+
+const gameBoard = (() => {
+
+    let gameContents = ['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'];
+
+    const addX = (pos) => {
+        gameContents.splice(pos, 1, 'X');
+        displayController.addBoardContents();
+    }
+    const addO = (pos) => {
+        gameContents.splice(pos, 1, 'O');
+        displayController.addBoardContents();
+    }
+    return {  gameContents, addX, addO  };
+})();
+
+const gameLogic = (() => {
+
+    let alternator = 'X';
+
+    const checkWin = () => {
+        console.log('checkWin');
+    }
+    const turn = (e) => {
+        let targ = e.target.id;
+        let targElement = document.getElementById(`${targ}`);
+        if(targElement.innerHTML !== 'X' && targElement.innerHTML !== 'O'){
+            if(alternator === 'O') {
+                gameBoard.addX(targ);
+                alternator = 'X';
+                console.log(alternator);
+            }
+            else if(alternator === 'X') {
+                gameBoard.addO(targ);
+                alternator = 'O';
+                console.log(alternator);
+            }
+        }
+        
+    }
+    
+    return {  alternator, checkWin, turn  };
+})();
+
+
+
+
+function score () {
+    console.log('score');
+}
+
+
+
+// const playerCreate = (name, age) => {
+//     const getAge = () => console.log(age);
+//     const sayHello = () => console.log('hello!');
+//     return { name, age, sayHello, getAge };
+//   };
   
-  const x = playerCreate('X', 12);
-  const o = playerCreate('O', 12);
+//   const x = playerCreate('X', 12);
+//   const o = playerCreate('O', 12);
