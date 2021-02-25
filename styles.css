@@ -34,6 +34,7 @@ h2 {
 #container {
     display:grid;
     grid-template-columns:0.4fr 0.6fr;
+    max-height:97vh;
 }
 
 #element1 {
@@ -45,4 +46,8 @@ button {
     background-color: cadetblue;
     border-style:solid;
     border-color:coral;
+}
+
+body {
+    max-height:97vh;
 }
