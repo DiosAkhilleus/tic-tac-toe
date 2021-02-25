@@ -44,10 +44,17 @@ button {
     width:100px;
     height:60px;
     background-color: cadetblue;
-    border-style:solid;
-    border-color:coral;
+    border-style:none;
+    font-size:40px;
+    color:white;
 }
 
 body {
     max-height:97vh;
+}
+
+#chooseToken {
+    text-align:center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size:20px;
 }

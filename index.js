@@ -1,10 +1,15 @@
 
 
-window.addEventListener('load', start);
+window.addEventListener('load', grid);
 
 function start () {
-    displayController.addGrid();
+    //displayController.addGrid();
     displayController.addBoardContents();
+}
+function grid () {
+    displayController.addGrid();
+    document.getElementById('stat').innerHTML = `Game Status: ${gameLogic.state}`;
+    console.log("grid");
 }
 
 const displayController = (() => {
@@ -63,9 +68,17 @@ const gameBoard = (() => {
 
 const gameLogic = (() => {
 
-    let alternator = 'X';
-    let state = "Playing";
+    let alternator = '';
+    let state = "Not Playing Yet";
 
+    const setState = (str) => {
+        state = str;
+        console.log(state);
+        gameLogic.checkWin();
+    }
+    const setAlternator = (str) => {
+        alternator = str;
+    }
     const arraysEqual = (a1, a2) => {
         return JSON.stringify(a1)==JSON.stringify(a2);
     }
@@ -106,16 +119,19 @@ const gameLogic = (() => {
     const turn = (e) => {
         let targ = e.target.id;
         let targElement = document.getElementById(`${targ}`);
-        if(targElement.innerHTML !== 'X' && targElement.innerHTML !== 'O'){
-            if(alternator === 'O') {
-                alternator = 'X';
-                gameBoard.addX(targ);
-            }
-            else if(alternator === 'X') {
-                alternator = 'O';
-                gameBoard.addO(targ);
+        if(state !== "Not Playing Yet"){
+            if(targElement.innerHTML !== 'X' && targElement.innerHTML !== 'O'){
+                if(alternator === 'O') {
+                    alternator = 'X';
+                    gameBoard.addX(targ);
+                }
+                else if(alternator === 'X') {
+                    alternator = 'O';
+                    gameBoard.addO(targ);
+                }
             }
         }
+        
         
     }
     const aiMove = () => {
@@ -125,7 +141,7 @@ const gameLogic = (() => {
         console.log('newGame');
     }
     
-    return {  alternator, state, checkWin, turn,  arraysEqual, aiMove, newGame  };
+    return {  alternator, state, checkWin, turn,  arraysEqual, aiMove, newGame, setState, setAlternator  };
 })();
 
 function score () {
@@ -136,9 +152,24 @@ function score () {
 
 
 
-let choose = document.getElementById('choice');
+let setX = document.getElementById('choiceX');
+let setO = document.getElementById('choiceO');
 
-choose.addEventListener('click', make);
+setX.addEventListener('click', chooseX);
+setO.addEventListener('click', chooseO);
+
+function chooseX () {
+    gameLogic.setState('Playing');
+    gameLogic.setAlternator('O');
+    setX.style.backgroundColor='red';
+    setO.style.pointerEvents='none';
+}
+function chooseO () {
+    gameLogic.setState('Playing');
+    gameLogic.setAlternator('X');
+    setO.style.backgroundColor="rgb(80, 200, 80)";
+    setX.style.pointerEvents='none';
+}
 
 function make(){
     const joe = playerCreate('Joe', 'X');
