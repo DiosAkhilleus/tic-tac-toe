@@ -161,7 +161,7 @@ setO.addEventListener('click', chooseO);
 function chooseX () {
     gameLogic.setState('Playing');
     gameLogic.setAlternator('O');
-    setX.style.backgroundColor='red';
+    setX.style.backgroundColor="rgb(80, 200, 80)";
     setO.style.pointerEvents='none';
 }
 function chooseO () {
