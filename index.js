@@ -24,6 +24,7 @@ const displayController = (() => {
             if(game[i] !== 'N')
             document.getElementById(`${i}`).innerHTML = game[i];
         }
+        gameLogic.checkWin();
     }
     const end = (state) => {
         if(state == 'O Wins!' || state == 'X Wins!' || state == "It's A Tie!"){
@@ -97,6 +98,7 @@ const gameLogic = (() => {
             displayController.end(state);
         }
         
+        document.getElementById('stat').innerHTML = `Game Status: ${state}`;
     }
     const turn = (e) => {
         let targ = e.target.id;
