@@ -17,6 +17,9 @@ const displayController = (() => {
             gridElement.addEventListener('click', gameLogic.turn);
         }
     }
+    const clearGrid = () => {
+        console.log("Clear");
+    }
     const addBoardContents = () => {
         let game = gameBoard.gameContents;
         let cont = document.getElementById('gameContainer');
@@ -35,7 +38,7 @@ const displayController = (() => {
             }
         }
     }
-    return { addGrid, addBoardContents, end };
+    return { addGrid, addBoardContents, end, clearGrid };
 
 })();
 
@@ -115,8 +118,14 @@ const gameLogic = (() => {
         }
         
     }
+    const aiMove = () => {
+        console.log("aiMove()");
+    }
+    const newGame = () => {
+        console.log('newGame');
+    }
     
-    return {  alternator, state, checkWin, turn,  arraysEqual};
+    return {  alternator, state, checkWin, turn,  arraysEqual, aiMove, newGame  };
 })();
 
 function score () {
@@ -125,9 +134,22 @@ function score () {
 
 
 
+
+
+let choose = document.getElementById('choice');
+
+choose.addEventListener('click', make);
+
+function make(){
+    const joe = playerCreate('Joe', 'X');
+    console.log(joe);
+}
+
 const playerCreate = (name, choice) => {
 
     const sayHello = () => console.log('hello!');
 
     return { name, choice, sayHello };
   };
+
+  
