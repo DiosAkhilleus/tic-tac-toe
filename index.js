@@ -2,7 +2,9 @@
 
 window.addEventListener('load', grid);
 
-
+function resetStatus () {
+    document.getElementById('stat').innerHTML="Game Status: Not Playing Yet";
+}
 
 function start () {
     //displayController.addGrid();
@@ -11,7 +13,6 @@ function start () {
 function grid () {
     displayController.addGrid();
     document.getElementById('stat').innerHTML = `Game Status: ${gameLogic.state}`;
-    console.log("grid");
 }
 function getRandomInt (min, max) {
     min = Math.ceil(min);
@@ -31,7 +32,10 @@ const displayController = (() => {
         }
     }
     const clearGrid = () => {
-        console.log("Clear");
+        let container = document.getElementById('gameContainer');
+        for(let i = 0; i < 9; i++){
+            container.removeChild(document.getElementById(`${i}`));
+        }
     }
     const addBoardContents = () => {
         let game = gameBoard.gameContents;
@@ -44,7 +48,7 @@ const displayController = (() => {
     }
     const end = (state) => {
         if(state == 'O Wins!' || state == 'X Wins!' || state == "It's A Tie!"){
-            console.log(state);
+            document.getElementById('stat').innerHTML = `Game Status: ${state}`;
             for(let i = 0; i < 9; i++){
                 let gr = document.getElementById(`${i}`);
                 gr.style.pointerEvents = 'none';
@@ -59,6 +63,9 @@ const gameBoard = (() => {
 
     let gameContents = ['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'];
 
+    const resetContents = () => {
+        gameContents.splice(0, 9, 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N');
+    }
     const addX = (pos) => {
         gameContents.splice(pos, 1, 'X');
         displayController.addBoardContents();
@@ -69,7 +76,7 @@ const gameBoard = (() => {
         displayController.addBoardContents();
         gameLogic.checkWin();
     }
-    return {  gameContents, addX, addO  };
+    return {  gameContents, addX, addO, resetContents  };
 })();
 
 const gameLogic = (() => {
@@ -79,8 +86,8 @@ const gameLogic = (() => {
 
     const setState = (str) => {
         state = str;
-        console.log(state);
         gameLogic.checkWin();
+        document.getElementById('stat').innerHTML = `Game Status: ${state}`;
     }
     const setAlternator = (str) => {
         alternator = str;
@@ -119,8 +126,6 @@ const gameLogic = (() => {
             state = "It's A Tie!";
             displayController.end(state);
         }
-        
-        document.getElementById('stat').innerHTML = `Game Status: ${state}`;
     }
     const turn = (e) => {
         let targ = e.target.id;
@@ -141,12 +146,10 @@ const gameLogic = (() => {
         
     }
     const aiMove = () => {
-        
         let rand = getRandomInt(0, 8);
         while(gameBoard.gameContents[rand] !== 'N'){
             rand = getRandomInt(0, 8);
             console.log(rand);
-            
         }
         let randEl = document.getElementById(`${rand}`);
         if(state !== 'X Wins!' && state !== 'O Wins!'){
@@ -164,7 +167,15 @@ const gameLogic = (() => {
         
     }
     const newGame = () => {
-        console.log('newGame');
+        
+        gameLogic.setState('Not Playing Yet');
+        gameBoard.resetContents();
+        displayController.clearGrid();
+        displayController.addGrid();
+        console.log(gameBoard.gameContents);
+        // displayController.addBoardContents();
+        resetStatus();
+        tokenControl.resetTokens();
     }
     
     return {  alternator, state, checkWin, turn,  arraysEqual, aiMove, newGame, setState, setAlternator  };
@@ -176,6 +187,16 @@ function score () {
 
 
 const tokenControl = (() => {
+
+    const resetTokens = () => {
+        gameLogic.setState('Not Playing Yet');
+        setX.style.backgroundColor="cadetblue";
+        setX.style.cursor='pointer';
+        setX.style.pointerEvents='';
+        setO.style.pointerEvents='';
+        setO.style.backgroundColor="cadetblue";
+        setO.style.cursor='pointer';
+    }
 
     const chooseX = () => {
         gameLogic.setState('Playing');
@@ -193,15 +214,17 @@ const tokenControl = (() => {
         setO.style.pointerEvents='none';
         setX.style.pointerEvents='none';
     }
-    return { chooseX, chooseO };
+    return { chooseX, chooseO, resetTokens };
 
 })();
 
 
 let setX = document.getElementById('choiceX');
 let setO = document.getElementById('choiceO');
+let reset = document.getElementById('reset');
 setX.addEventListener('click', tokenControl.chooseX);
 setO.addEventListener('click', tokenControl.chooseO);
+reset.addEventListener('click', gameLogic.newGame);
 
 const playerCreate = (name, choice) => {
 
