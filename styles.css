@@ -3,6 +3,13 @@ h2 {
     color:indianred;
     text-align:center;
 }
+#rules {
+    color:black;
+    max-width:400px;
+    text-align:center;
+    font-size:30px;
+    transform: translate3d(94px, -350px, 0px);
+}
 #title {
     text-align:center;
     color:black;
@@ -36,13 +43,18 @@ h2 {
 
 #container {
     display:grid;
-    grid-template-columns:0.4fr 0.6fr;
+    grid-template-columns:40vw 60vw;
+    column-gap: 8px;
     max-height:97vh;
 }
 
 #element1 {
-    margin:auto;
-    transform: translateY();
+    margin-left:auto;
+    margin-right:auto;
+    /* min-width:500px; */
+    height:300px;
+    align-items:center;
+    vertical-align: middle;
 }
 button {
     width:100px;
@@ -54,10 +66,17 @@ button {
     border-style:solid;
     border-color:white;
     border-radius:18px;
+    margin:auto;
 }
 button:hover {
     background-color:rgb(124, 208, 211);
     cursor:pointer;
+}
+#reset {
+    font-size:30px;
+    margin-left:25%;
+}
+#buttonContainer {
 }
 
 body {
