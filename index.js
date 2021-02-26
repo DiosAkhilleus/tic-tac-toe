@@ -13,6 +13,11 @@ function grid () {
     document.getElementById('stat').innerHTML = `Game Status: ${gameLogic.state}`;
     console.log("grid");
 }
+function getRandomInt (min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 
 const displayController = (() => {
@@ -130,13 +135,33 @@ const gameLogic = (() => {
                     alternator = 'O';
                     gameBoard.addO(targ);
                 }
+                aiMove();
             }
         }
         
-        
     }
     const aiMove = () => {
-        console.log("aiMove()");
+        
+        let rand = getRandomInt(0, 8);
+        while(gameBoard.gameContents[rand] !== 'N'){
+            rand = getRandomInt(0, 8);
+            console.log(rand);
+            
+        }
+        let randEl = document.getElementById(`${rand}`);
+        if(state !== 'X Wins!' && state !== 'O Wins!'){
+            if(randEl.innerHTML !== 'X' && randEl.innerHTML !== 'O'){
+                if(alternator === 'O') {
+                    alternator = 'X';
+                    gameBoard.addX(rand);
+                }
+                else if(alternator === 'X') {
+                    alternator = 'O';
+                    gameBoard.addO(rand);
+                }
+            }
+        }
+        
     }
     const newGame = () => {
         console.log('newGame');
@@ -184,5 +209,3 @@ const playerCreate = (name, choice) => {
 
     return { name, choice, sayHello };
   };
-
-  
