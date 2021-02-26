@@ -2,6 +2,8 @@
 
 window.addEventListener('load', grid);
 
+
+
 function start () {
     //displayController.addGrid();
     displayController.addBoardContents();
@@ -11,6 +13,7 @@ function grid () {
     document.getElementById('stat').innerHTML = `Game Status: ${gameLogic.state}`;
     console.log("grid");
 }
+
 
 const displayController = (() => {
     const addGrid = () => {
@@ -46,8 +49,6 @@ const displayController = (() => {
     return { addGrid, addBoardContents, end, clearGrid };
 
 })();
-
-
 
 const gameBoard = (() => {
 
@@ -149,32 +150,33 @@ function score () {
 }
 
 
+const tokenControl = (() => {
 
+    const chooseX = () => {
+        gameLogic.setState('Playing');
+        gameLogic.setAlternator('O');
+        setX.style.backgroundColor="rgb(80, 200, 80)";
+        setX.style.cursor='default';
+        setX.style.pointerEvents='none';
+        setO.style.pointerEvents='none';
+    }
+    const chooseO = () => {
+        gameLogic.setState('Playing');
+        gameLogic.setAlternator('X');
+        setO.style.backgroundColor="rgb(80, 200, 80)";
+        setO.style.cursor='default';
+        setO.style.pointerEvents='none';
+        setX.style.pointerEvents='none';
+    }
+    return { chooseX, chooseO };
+
+})();
 
 
 let setX = document.getElementById('choiceX');
 let setO = document.getElementById('choiceO');
-
-setX.addEventListener('click', chooseX);
-setO.addEventListener('click', chooseO);
-
-function chooseX () {
-    gameLogic.setState('Playing');
-    gameLogic.setAlternator('O');
-    setX.style.backgroundColor="rgb(80, 200, 80)";
-    setO.style.pointerEvents='none';
-}
-function chooseO () {
-    gameLogic.setState('Playing');
-    gameLogic.setAlternator('X');
-    setO.style.backgroundColor="rgb(80, 200, 80)";
-    setX.style.pointerEvents='none';
-}
-
-function make(){
-    const joe = playerCreate('Joe', 'X');
-    console.log(joe);
-}
+setX.addEventListener('click', tokenControl.chooseX);
+setO.addEventListener('click', tokenControl.chooseO);
 
 const playerCreate = (name, choice) => {
 

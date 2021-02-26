@@ -1,11 +1,11 @@
-h1 {
-    color:cadetblue;
-    text-align:center;
-}
 
 h2 {
     color:indianred;
     text-align:center;
+}
+#title {
+    text-align:center;
+    color:black;
 }
 
 #gameContainer {
@@ -30,6 +30,9 @@ h2 {
     line-height:230px;
     user-select:none;
 }
+.grid:hover {
+    cursor:pointer;
+}
 
 #container {
     display:grid;
@@ -39,6 +42,7 @@ h2 {
 
 #element1 {
     margin:auto;
+    transform: translateY();
 }
 button {
     width:100px;
@@ -47,6 +51,13 @@ button {
     border-style:none;
     font-size:40px;
     color:white;
+    border-style:solid;
+    border-color:white;
+    border-radius:18px;
+}
+button:hover {
+    background-color:rgb(124, 208, 211);
+    cursor:pointer;
 }
 
 body {
