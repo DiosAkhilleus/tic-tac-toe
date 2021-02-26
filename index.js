@@ -141,30 +141,32 @@ const gameLogic = (() => {
                     gameBoard.addO(targ);
                 }
                 aiMove();
+                
             }
         }
         
     }
     const aiMove = () => {
-        let rand = getRandomInt(0, 8);
-        while(gameBoard.gameContents[rand] !== 'N'){
-            rand = getRandomInt(0, 8);
-            console.log(rand);
-        }
-        let randEl = document.getElementById(`${rand}`);
-        if(state !== 'X Wins!' && state !== 'O Wins!'){
-            if(randEl.innerHTML !== 'X' && randEl.innerHTML !== 'O'){
-                if(alternator === 'O') {
-                    alternator = 'X';
-                    gameBoard.addX(rand);
-                }
-                else if(alternator === 'X') {
-                    alternator = 'O';
-                    gameBoard.addO(rand);
+        if(gameBoard.gameContents.indexOf('N') !== -1){
+            let rand = getRandomInt(0, 8);
+            while(gameBoard.gameContents[rand] !== 'N'){
+                rand = getRandomInt(0, 8);
+                console.log(rand);
+            }
+            let randEl = document.getElementById(`${rand}`);
+            if(state !== 'X Wins!' && state !== 'O Wins!'){
+                if(randEl.innerHTML !== 'X' && randEl.innerHTML !== 'O'){
+                    if(alternator === 'O') {
+                        alternator = 'X';
+                        gameBoard.addX(rand);
+                    }
+                    else if(alternator === 'X') {
+                        alternator = 'O';
+                        gameBoard.addO(rand);
+                    }
                 }
             }
         }
-        
     }
     const newGame = () => {
         
