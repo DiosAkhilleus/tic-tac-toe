@@ -122,7 +122,7 @@ const gameLogic = (() => {
             }
         }
 
-        if(gameBoard.gameContents.indexOf('N') == -1){
+        if(gameBoard.gameContents.indexOf('N') == -1 && state !== 'O Wins!' & state !== 'X Wins!'){
             state = "It's A Tie!";
             displayController.end(state);
         }
