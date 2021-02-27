@@ -1,5 +1,4 @@
 
-
 window.addEventListener('load', grid);
 
 function resetStatus () {
@@ -182,10 +181,6 @@ const gameLogic = (() => {
     
     return {  alternator, state, checkWin, turn,  arraysEqual, aiMove, newGame, setState, setAlternator  };
 })();
-
-function score () {
-    console.log('score');
-}
 
 
 const tokenControl = (() => {
